@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>eZdravje :: 4. DN :: OIS 2017/2018</title>
+  <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {padding-top: 70px;}
+  </style>
+  <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
+  <script src="knjiznice/js/bootstrap.min.js"></script>
+  <script src="knjiznice/js/koda.js"></script>
+</head>
+<body>
+
+  <!-- ZAČETEK: Menujska vrstica na vrhu spletne strani -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menujska-vrstica">
+          <span class="sr-only">Prikaži menu</span>
+          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+        <!-- ZAČETEK: Ime vaše aplikacije -->
+        <a class="navbar-brand" href="index.html">IDEAL</a>
+        <!-- KONEC: Ime vaše aplikacije -->
+      </div>
+      <div class="collapse navbar-collapse" id="menujska-vrstica">
+        <ul class="nav navbar-nav">
+          <li><a href="opis.html">Opis ideje</a></li>
+          <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- KONEC: Menujska vrstica na vrhu spletne strani -->
+
+  <!-- ZAČETEK: Opis delovanja aplikacije -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Opis ideje, ki jo aplikacija podpira</h3>
+          </div>
+          <div class="panel-body">
+            <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
+            <p>Aplikacija IDEAL je namenjena vsem uporabnikom, ki jih zanima spreminjanje njihovega <strong>ITM-ja</strong> skozi čas. Na začetku si morajo ustvariti svoj EHRid, nato
+            pa lahko vnašajo meritve svoje telesne teže in višine. Aplikacija omogoča, da se jim nato izpišejo izračuni ITM-ja za vsak vnos ter še grafična predstavitev
+            zadnjega izmerjenega ITM-ja in ali je ta prevelik/normalen/premajhen. Na koncu, če želijo lahko glede na zadnji ITM dobijo še <strong>recept</strong>, ki bi pripomogel, da bi 
+            se jim ITM zmanjšal/povečal/ostal, kjer je (odvisno od velikosti ITM-ja). Aplikacija uporabnike seznani z njihovim indeksom telesne mase in jim tako pove, ali je njihova teža primerna glede na njihovo višino ali ne.</p>
+            <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Uporabljeni zunanji viri podatkov</h3>
+          </div>
+          <div class="panel-body">
+            <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
+             <p>Kot zunanji vir je uporabljen API od http://food2fork.com/about/api, preko katerega aplikacija pridobi recepte glede na zadnji izmerjeni ITM.
+            Glede na to, ali je ITM prevelik/premajhen/v redu, so iskani nizi chocolate/salad/chicken, ki vrnejo 30 najbolje ocenjenih receptov. Preko random funkcije
+            se izbere naključni recept in se prikaže na strani. Uporabniku tako priporoči zanj primerno hrano - mu pove, če si "sme" privoščiti kakšno sladico.</p>
+            <p> URL: http://food2fork.com</p>
+            <!-- KONEC: Uporabljeni zunanji viri podatkov -->
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Master/detail načrtovalski vzorec</h3>
+          </div>
+          <div class="panel-body">
+            <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
+            <p>Master-detail načtrovalski vzorec je prisoten pri pregledu izmerjenih ITM-jev skoz čas, kjer lahko uporabnik s klikom na gumb ob meritvi pridobi podatke o telesni teži in višini,
+            iz katerih je bil ITM izračunan. Prav tako sem master-detail načrtovalski vzorec uporabil pri pregledu indeksov telesne mase, kjer se pri izbiri enega izmed vzorčnih bolnikov njegov EhrId kopira na ustrezno polje.
+              </p>
+            <!-- KONEC: Master/detail načrtovalski vzorec -->
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Uporabljena tehnika za vizualizacijo podatkov</h3>
+          </div>
+          <div class="panel-body">
+            <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
+            <p>Za vizualizacijo podatkov je uporabljena tehnika liquid fill gauge iz knjižnice <a href='https://d3js.org/'>https://d3js.org/</a> in je uporabljena, da uporabniku grafično prikaže njegov zadnji izračunani ITM.
+              </p>
+            <!-- KONEC: Uporabljeni zunanji viri podatkov -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- KONEC: Opis delovanja aplikacije -->
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>eZdravje :: 4. DN :: OIS 2017/2018</title>
+  <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {padding-top: 70px;}
+  </style>
+  <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
+  <script src="knjiznice/js/bootstrap.min.js"></script>
+  <script src="knjiznice/js/koda.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+  <style>
+      .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- ZAČETEK: Menujska vrstica na vrhu spletne strani -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menujska-vrstica">
+          <span class="sr-only">Prikaži menu</span>
+          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+        <!-- ZAČETEK: Ime vaše aplikacije -->
+        <a class="navbar-brand" href="index.html">IDEAL</a>
+        <!-- KONEC: Ime vaše aplikacije -->
+      </div>
+      <div class="collapse navbar-collapse" id="menujska-vrstica">
+        <ul class="nav navbar-nav">
+          <li><a href="opis.html">Opis ideje</a></li>
+          <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
+          <li><a href = "#" onclick="klicGenerirajPodatke()">Generiranje podatkov</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- KONEC: Menujska vrstica na vrhu spletne strani -->
+
+  <!-- ZAČETEK: Vsebina aplikacije -->
+  <div class="container">
+    <div class="row" id="generiraniPodatki"></div>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Kreiraj EHR zapis</b> za novo osebo</div>
+							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiPredlogoBolnika"><option value=""></option>
+							<option value="Anja,Kranjec,1996-10-30,FEMALE">Anja Kranjec</option>
+							<option value="Tomaž,Novak,1967-9-30,MALE">Tomaž Novak</option>
+							<option value="Sosedova,Micka,1981-9-30,FEMALE">Sosedova Micka</option></select></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Ime">
+						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Priimek">
+						<span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="1957-03-10">
+						<span class="label label-default">Spol</span><input id="kreirajSpol" type="text" class="form-control" placeholder="FEMALE">
+						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o osebi</button><span id="kreirajSporocilo"></span>
+				  	</div>
+				</div>
+			</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos</b> meritve <b>telesne teže in višine</b></div>
+							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciVitalniZnak">
+								<option ></option>
+							<option value="d813acc4-2948-4773-855a-952f32070c2e|2018-05-08|160|50.00">Ana Kranjec</option>
+							</option><option value="4e56ddd4-0acf-4385-a2f6-003a06776cc1|2018-05-08|180.00|110.00">Tomaž Novak</option
+							><option value="6e9064a6-f43e-4a05-a500-a8955331659d|2018-05-08|170|55.00">Sosedova Micka</option></select></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="dodajVitalnoEHR" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						<span class="label label-default">Datum</span><input id="dodajVitalnoDatum" type="text" class="form-control input-mini" placeholder="2018-11-21">
+						<span class="label label-default">Telesna višina</span><div class="input-group"><input id="dodajVitalnoTelesnaVisina" type="text" class="form-control input-mini" placeholder="185"><span class="input-group-addon">cm</span></div>
+						<span class="label label-default">Telesna teža</span><div class="input-group"><input id="dodajVitalnoTelesnaTeza" type="text" class="form-control input-mini" placeholder="80.00"><span class="input-group-addon">kg</span></div>
+						<button type="button" class="btn btn-primary btn-xs" onclick="dodajMeritveTezeVisine()">Dodaj meritve telesne teže in višine</button><span id="dodajMeritveTezeVisineSporocilo"></span>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6"><b>Pregled</b> indeksov telesne mase <b>BMI</b></div>
+							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiEhrIdZaBMI"><option value=""></option>
+							<option value="d813acc4-2948-4773-855a-952f32070c2e">Anja Kranjec</option>
+							<option value="4e56ddd4-0acf-4385-a2f6-003a06776cc1">Tomaž Novak</option>
+							<option value="6e9064a6-f43e-4a05-a500-a8955331659d">Sosedova Micka</option></select></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="meritveVitalnihZnakovEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						<button type="button" class="btn btn-primary btn-xs" onclick="preberiIndekseTelesneMase()">Preberi indekse telesne mase</button><span id="preberiIndekseTelesneMaseSporocilo"></span>
+						<div id="rezultatIndeksovTelesneMase"></div>
+				  	</div>
+				</div>
+				
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Priporoči recept</b> glede na zadnji izmerjeni BMI</div>
+							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciEHR">
+								<option value=""></option>
+								<option value="d813acc4-2948-4773-855a-952f32070c2e">Anja Kranjec</option>
+								<option value="4e56ddd4-0acf-4385-a2f6-003a06776cc1">Tomaž Novak</option>
+								<option value="6e9064a6-f43e-4a05-a500-a8955331659d">Sosedova Micka</option></select></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input value = ""id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						<button type="button" class="btn btn-primary btn-xs" onclick="priporociRecept()">Priporoči recept</button><span id="priporociReceptSporocilo"></span>
+						<div id="rezultatBMI"></div>
+						<div id="rezultatRecept"></div>
+				  	</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+		  <div class="col-lg-6 col-md-6 col-sm-6">
+  		  <div style="text-align:center;"><svg id="fillgauge1" width="50%" height="250"></svg></div>
+  		  <div id="rezultatGraf"></div>
+		  </div>
+		</div>
+  </div>
+  <!-- KONEC: Vsebina aplikacije -->
+
+</body>
+</html>
